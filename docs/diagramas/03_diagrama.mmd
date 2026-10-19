@@ -1,0 +1,55 @@
+erDiagram
+  direction TB
+  usuario {
+    INTEGER id PK
+    TEXT nombre
+    TEXT correo UK
+    TEXT hash_clave
+    TEXT rol
+    INTEGER activo
+  }
+  restaurante {
+    INTEGER id PK
+    TEXT nombre
+    TEXT ciudad
+    TEXT direccion
+    INTEGER activo
+  }
+  administrador_restaurante {
+    INTEGER usuario_id PK,FK
+    INTEGER restaurante_id PK,FK
+  }
+  mesa {
+    INTEGER id PK
+    INTEGER restaurante_id FK
+    TEXT numero
+    INTEGER capacidad
+    INTEGER activa
+  }
+  horario_atencion {
+    INTEGER id PK
+    INTEGER restaurante_id FK
+    INTEGER dia_semana
+    TEXT apertura
+    TEXT cierre
+  }
+  reserva {
+    INTEGER id PK
+    INTEGER cliente_id FK
+    INTEGER creado_por_id FK
+    INTEGER mesa_id FK
+    TEXT inicio
+    TEXT fin
+    INTEGER personas
+    TEXT observaciones
+    TEXT estado
+    TEXT fecha_creacion
+    TEXT token_operacion UK
+  }
+  usuario ||--o{ administrador_restaurante : administra
+  restaurante ||--o{ administrador_restaurante : asigna
+  restaurante ||--o{ mesa : contiene
+  restaurante ||--o{ horario_atencion : atiende
+  mesa ||--o{ reserva : ocupa
+  usuario ||--o{ reserva : cliente
+  usuario ||--o{ reserva : creador

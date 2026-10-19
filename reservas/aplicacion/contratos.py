@@ -1,0 +1,93 @@
+#"Puertos de persistencia: los servicios no importan implementaciones SQLite.
+
+from abc import ABC, abstractmethod
+from datetime import datetime
+from typing import Self
+
+from reservas.dominio.entidades import HorarioAtencion, Mesa, Reserva, Restaurante, Usuario
+
+
+class UsuarioDAO(ABC):
+    @abstractmethod
+    def buscar_por_id(self, id: int) -> Usuario | None: ...
+    @abstractmethod
+    def buscar_por_correo(self, correo: str) -> Usuario | None: ...
+    @abstractmethod
+    def listar_clientes(self) -> list[Usuario]: ...
+
+
+class RestauranteDAO(ABC):
+    @abstractmethod
+    def buscar_por_id(self, id: int) -> Restaurante | None: ...
+    @abstractmethod
+    def buscar(self, nombre="", ciudad="") -> list[Restaurante]: ...
+
+
+class AsignacionAdminDAO(ABC):
+    @abstractmethod
+    def puede_gestionar(self, usuario_id: int, restaurante_id: int) -> bool: ...
+    @abstractmethod
+    def listar_restaurantes(self, usuario_id: int) -> list[int]: ...
+
+
+class MesaDAO(ABC):
+    @abstractmethod
+    def buscar_por_id(self, id: int) -> Mesa | None: ...
+    @abstractmethod
+    def listar(self, restaurante_id: int) -> list[Mesa]: ...
+    @abstractmethod
+    def listar_candidatas(self, restaurante_id: int, personas: int) -> list[Mesa]: ...
+    @abstractmethod
+    def guardar(self, mesa: Mesa) -> Mesa: ...
+
+
+class HorarioDAO(ABC):
+    @abstractmethod
+    def listar_por_dia(self, restaurante_id: int, dia: int) -> list[HorarioAtencion]: ...
+    @abstractmethod
+    def listar(self, restaurante_id: int) -> list[HorarioAtencion]: ...
+    @abstractmethod
+    def buscar_por_id(self, id: int) -> HorarioAtencion | None: ...
+    @abstractmethod
+    def guardar(self, horario: HorarioAtencion) -> HorarioAtencion: ...
+    @abstractmethod
+    def eliminar_franja(self, id: int) -> None: ...
+
+
+class ReservaDAO(ABC):
+    @abstractmethod
+    def buscar_por_id(self, id: int) -> Reserva | None: ...
+    @abstractmethod
+    def buscar_por_token(self, token: str) -> Reserva | None: ...
+    @abstractmethod
+    def buscar_solapadas(self, mesa_id: int, inicio: datetime, fin: datetime) -> list[Reserva]: ...
+    @abstractmethod
+    def listar(
+        self, cliente_id: int | None = None, restaurante_ids: list[int] | None = None
+    ) -> list[Reserva]: ...
+    @abstractmethod
+    def listar_vigentes(self, restaurante_id: int, ahora: datetime) -> list[Reserva]: ...
+    @abstractmethod
+    def guardar(self, reserva: Reserva) -> Reserva: ...
+    @abstractmethod
+    def cancelar(self, reserva: Reserva) -> None: ...
+
+
+class UnidadTrabajo(ABC):
+    usuarios: UsuarioDAO
+    restaurantes: RestauranteDAO
+    asignaciones: AsignacionAdminDAO
+    mesas: MesaDAO
+    horarios: HorarioDAO
+    reservas: ReservaDAO
+
+    @abstractmethod
+    def __enter__(self) -> Self: ...
+    @abstractmethod
+    def __exit__(self, tipo, valor, traza): ...
+    @abstractmethod
+    def iniciar_escritura(self) -> None: ...
+    @abstractmethod
+    def confirmar(self) -> None: ...
+    @abstractmethod
+    def revertir(self) -> None: ...

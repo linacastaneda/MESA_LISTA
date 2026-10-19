@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% from 'macros.html' import badge %}{% block title %}Reserva #{{ reserva.id }}{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('web.reservas') }}">← Volver a reservas</a>
+<div class="detail-wrap"><section class="ticket"><div class="ticket-top"><p class="eyebrow accent">RESERVA #{{ '%04d'|format(reserva.id) }}</p>{{ badge(reserva,ahora) }}</div>
+<h1>{{ 'Nos vemos a la mesa.' if reserva.estado=='CONFIRMADA' and reserva.inicio>ahora else 'Los detalles de tu encuentro.' }}</h1>
+<h2>{{ restaurante.nombre }}</h2><p class="muted">{{ restaurante.direccion }} · {{ restaurante.ciudad }}</p>
+<div class="ticket-grid"><div><span>Fecha</span><strong>{{ reserva.inicio|local('%d/%m/%Y') }}</strong></div><div><span>Hora de Colombia</span><strong>{{ reserva.inicio|local('%H:%M') }}–{{ reserva.fin|local('%H:%M') }}</strong></div><div><span>Personas</span><strong>{{ reserva.datos.personas }}</strong></div><div><span>Mesa asignada</span><strong>{{ mesa.numero }}</strong></div></div>
+<dl class="detail-lines"><div><dt>A nombre de</dt><dd>{{ cliente.nombre }}</dd></div><div><dt>Estado guardado</dt><dd>{{ 'Confirmada' if reserva.estado=='CONFIRMADA' else 'Cancelada' }}</dd></div><div><dt>Observaciones</dt><dd class="preserve-lines">{{ reserva.datos.observaciones or 'Sin observaciones.' }}</dd></div></dl>
+<div class="ticket-actions"><a class="button" href="{{ url_for('web.repetir_reserva', reserva_id=reserva.id) }}">Volver a reservar ↗</a>
+{% if reserva.estado=='CONFIRMADA' and reserva.inicio>ahora %}<form action="{{ url_for('web.cancelar_reserva', reserva_id=reserva.id) }}" method="post" data-confirm="¿Quieres cancelar esta reserva? La mesa quedará disponible para otras personas."><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="button subtle" type="submit">Cancelar reserva</button></form>{% endif %}</div>
+<p class="hint">Volver a reservar prepara una copia. Deberás elegir la fecha y confirmar un nuevo cupo.</p></section></div>
+{% endblock %}

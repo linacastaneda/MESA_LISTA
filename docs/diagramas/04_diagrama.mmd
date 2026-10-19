@@ -1,0 +1,48 @@
+classDiagram
+  direction TB
+  class UnidadTrabajo {
+    <<abstract>>
+    +ReservaDAO reservas
+    +MesaDAO mesas
+    +UsuarioDAO usuarios
+    +RestauranteDAO restaurantes
+    +HorarioDAO horarios
+    +AsignacionAdminDAO asignaciones
+    +iniciar_escritura()
+    +confirmar()
+    +revertir()
+  }
+  class ReservaDAO {
+    <<abstract>>
+    +buscar_por_id(id)
+    +buscar_por_token(token)
+    +buscar_solapadas(mesa_id, inicio, fin)
+    +listar(cliente_id, restaurante_ids)
+    +listar_vigentes(restaurante_id, ahora)
+    +guardar(reserva)
+    +cancelar(reserva)
+  }
+  class MesaDAO {
+    <<abstract>>
+    +buscar_por_id(id)
+    +listar(restaurante_id)
+    +listar_candidatas(restaurante_id, personas)
+    +guardar(mesa)
+  }
+  class UnidadTrabajoSqlite {
+    +Connection conexion
+    +iniciar_escritura()
+    +confirmar()
+    +revertir()
+  }
+  class SqliteReservaDAO {
+    +Connection conexion
+  }
+  class SqliteMesaDAO {
+    +Connection conexion
+  }
+  UnidadTrabajo <|-- UnidadTrabajoSqlite
+  ReservaDAO <|-- SqliteReservaDAO
+  MesaDAO <|-- SqliteMesaDAO
+  UnidadTrabajoSqlite *-- SqliteReservaDAO
+  UnidadTrabajoSqlite *-- SqliteMesaDAO

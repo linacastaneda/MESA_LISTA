@@ -1,0 +1,25 @@
+classDiagram
+  direction TB
+  class Usuario {
+    +int id
+    +str nombre
+    +Rol rol
+    +bool activo
+  }
+  class UsuarioSesionAdapter {
+    +Usuario usuario
+    +get_id() str
+    +is_active bool
+    +is_authenticated bool
+    +is_anonymous bool
+  }
+  class ServicioAutenticacion {
+    +autenticar(correo, clave)
+    +cargar_sesion(identificador)
+  }
+  class LoginManager {
+    <<FlaskLogin>>
+  }
+  UsuarioSesionAdapter *-- Usuario
+  ServicioAutenticacion ..> UsuarioSesionAdapter : crea después de verificar
+  LoginManager ..> UsuarioSesionAdapter : consume contrato de sesión

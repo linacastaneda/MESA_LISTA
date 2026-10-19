@@ -1,0 +1,13 @@
+{% macro errors(field) %}
+{% if field.errors %}<ul class="field-errors" id="{{ field.id }}-errors">{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+{% endmacro %}
+{% macro field(field, hint='') %}
+<div class="field">{{ field.label }}{{ field(aria_describedby=field.id+'-errors', **kwargs) }}
+{% if hint %}<small class="hint">{{ hint }}</small>{% endif %}{{ errors(field) }}</div>
+{% endmacro %}
+{% macro badge(reserva, ahora) %}
+{% if reserva.estado=='CANCELADA' %}<span class="badge cancelled">Cancelada</span>
+{% elif reserva.fin <= ahora %}<span class="badge past">Finalizada</span>
+{% elif reserva.inicio <= ahora %}<span class="badge">En curso</span>
+{% else %}<span class="badge">Confirmada</span>{% endif %}
+{% endmacro %}

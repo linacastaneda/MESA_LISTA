@@ -1,0 +1,35 @@
+classDiagram
+  direction TB
+  class ConstructorReserva {
+    <<abstract>>
+    +reiniciar()
+    +con_cliente(cliente_id)
+    +con_mesa(mesa)
+    +con_intervalo(inicio, fin)
+    +con_detalles(personas, observaciones)
+    +con_auditoria(creado_por_id, fecha_creacion, token)
+    +construir() Reserva
+  }
+  class ReservaBuilder {
+    -dict _valores
+    +construir() Reserva
+  }
+  class DirectorReserva {
+    +ConstructorReserva constructor
+    +preparar(contexto) Reserva
+  }
+  class ContextoReserva {
+    +int cliente_id
+    +int creado_por_id
+    +Mesa mesa
+    +DatosReserva datos
+    +datetime fin
+    +datetime ahora
+    +str token
+  }
+  ServicioReserva ..> DirectorReserva : utiliza
+  ServicioReserva ..> ContextoReserva : crea
+  DirectorReserva --> ConstructorReserva
+  DirectorReserva ..> ContextoReserva
+  ConstructorReserva <|-- ReservaBuilder
+  ReservaBuilder ..> Reserva : construye

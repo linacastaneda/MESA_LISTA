@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block title %}No pudimos completar la solicitud{% endblock %}{% block content %}<div class="empty error-page"><p class="eyebrow accent">{{ codigo }}</p><h1>Hagamos una pausa.</h1><p>{{ mensaje }}</p><a class="button" href="{{ url_for('web.inicio') }}">Volver al inicio</a></div>{% endblock %}

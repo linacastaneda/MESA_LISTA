@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#773f32">
+  <title>{% block title %}MesaLista{% endblock %} · Reservas de restaurantes</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+{% if current_user.is_authenticated %}
+<header class="header"><div class="nav-shell">
+  <a class="brand" href="{{ url_for('web.restaurantes') }}"><span class="brand-mark">m.</span>MesaLista<span class="brand-dot">.</span></a>
+  <nav aria-label="Navegación principal">
+    <a {% if request.endpoint == 'web.restaurantes' %}aria-current="page"{% endif %} href="{{ url_for('web.restaurantes') }}">Restaurantes</a>
+    <a {% if request.endpoint == 'web.reservas' %}aria-current="page"{% endif %} href="{{ url_for('web.reservas') }}">{{ 'Reservas' if current_user.usuario.rol == 'ADMINISTRADOR' else 'Mis reservas' }}</a>
+    {% if current_user.usuario.rol == 'ADMINISTRADOR' %}
+    <a {% if request.endpoint in ('web.mesas','web.horarios') %}aria-current="page"{% endif %} href="{{ url_for('web.mesas') }}">Administración</a>
+    {% endif %}
+  </nav>
+  <div class="account"><div><strong>{{ current_user.usuario.nombre }}</strong><small>{{ 'Administrador' if current_user.usuario.rol == 'ADMINISTRADOR' else 'Cliente' }}</small></div>
+    <form action="{{ url_for('web.logout') }}" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="text-button" type="submit">Salir ↗</button></form>
+  </div>
+</div></header>
+{% endif %}
+<main id="contenido" class="{% block main_class %}container{% endblock %}">
+  {% with mensajes=get_flashed_messages(with_categories=true) %}{% for categoria,mensaje in mensajes %}
+  <div class="alert {{ categoria }}" role="{{ 'alert' if categoria=='error' else 'status' }}">{{ mensaje }}</div>
+  {% endfor %}{% endwith %}
+  {% block content %}{% endblock %}
+</main>
+{% if current_user.is_authenticated %}<footer class="footer"><span>MesaLista · Un lugar para compartir.</span><span>Horarios de Colombia · America/Bogota</span></footer>{% endif %}
+</body></html>

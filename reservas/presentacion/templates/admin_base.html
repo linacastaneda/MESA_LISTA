@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}
+<div class="page-heading"><div><p class="eyebrow accent">CADA DETALLE CUENTA</p><h1>Prepara el próximo encuentro.</h1><p class="muted">Gestiona la capacidad y los horarios de {{ restaurante.nombre }}.</p></div></div>
+<div class="admin-toolbar"><nav class="tabs" aria-label="Configuración"><a class="{{ 'active' if request.endpoint=='web.mesas' else '' }}" href="{{ url_for('web.mesas', restaurante_id=restaurante.id) }}">Mesas</a><a class="{{ 'active' if request.endpoint=='web.horarios' else '' }}" href="{{ url_for('web.horarios', restaurante_id=restaurante.id) }}">Horarios</a></nav>
+<form method="get" class="inline-form"><label for="admin-restaurante">Restaurante</label><select id="admin-restaurante" name="restaurante_id">{% for r in restaurantes %}<option value="{{ r.id }}" {% if r.id==restaurante.id %}selected{% endif %}>{{ r.nombre }}</option>{% endfor %}</select><button class="button outline small" type="submit">Ver</button></form></div>
+{% block admin_content %}{% endblock %}{% endblock %}

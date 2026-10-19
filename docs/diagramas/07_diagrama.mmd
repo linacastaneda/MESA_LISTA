@@ -1,0 +1,25 @@
+classDiagram
+  direction TB
+  class Prototipo~T~ {
+    <<abstract>>
+    +clonar() T
+  }
+  class DatosReserva {
+    +int restaurante_id
+    +datetime inicio
+    +int personas
+    +str observaciones
+    +clonar() DatosReserva
+  }
+  class Reserva {
+    -DatosReserva _datos
+    +datos() DatosReserva
+  }
+  class ReservaFacade {
+    +preparar_repeticion(actor_id, reserva_id) DatosReserva
+  }
+  Prototipo <|-- DatosReserva
+  Reserva *-- DatosReserva
+  ReservaFacade ..> Reserva : autoriza y consulta
+  ReservaFacade ..> DatosReserva : solicita copia
+  ReservaForm ..> DatosReserva : precarga valores

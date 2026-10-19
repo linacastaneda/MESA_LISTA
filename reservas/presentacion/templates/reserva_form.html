@@ -1,0 +1,36 @@
+{% extends 'base.html' %}{% from 'macros.html' import field, errors %}{% block title %}Reservar una mesa{% endblock %}
+{% block content %}
+<a class="back-link" href="{{ url_for('web.restaurantes') }}">← Volver a restaurantes</a>
+<div class="page-heading"><div><p class="eyebrow accent">TU PRÓXIMO ENCUENTRO</p><h1>Guardemos tu mesa.</h1><p class="muted">Selecciona una hora y confirma los detalles de tu reserva.</p></div><span class="step-label">01 Elige &nbsp; / &nbsp; 02 Confirma</span></div>
+{% if repetida %}<div class="alert info">Copiamos los datos de tu reserva anterior. Elige una fecha futura y confirma de nuevo; la reserva original se conserva.</div>{% endif %}
+{% if not restaurantes %}<div class="empty"><h2>No hay restaurantes disponibles</h2><p>Vuelve a consultar más adelante.</p></div>{% else %}
+<div class="reservation-layout"><section>
+<div class="panel"><h2><span class="step-number">1</span> ¿Cuándo nos vemos?</h2>
+<form method="get" action="{{ url_for('web.nueva_reserva') }}" class="stack">
+  {% if origen_repeticion %}<input type="hidden" name="repetir_id" value="{{ origen_repeticion }}">{% endif %}
+  {{ field(form.restaurante_id) }}
+  <div class="form-grid">{{ field(form.fecha) }}{{ field(form.personas, min=1, max=1000) }}</div>
+  <button class="button outline" type="submit">Consultar horarios</button>
+</form></div>
+<form method="post" action="{{ url_for('web.crear_reserva') }}" class="panel stack" id="booking-form">
+  {{ form.hidden_tag() }}
+  <input type="hidden" name="restaurante_id" value="{{ form.restaurante_id.data or '' }}">
+  <input type="hidden" name="fecha" value="{{ form.fecha.data.isoformat() if form.fecha.data else '' }}">
+  <input type="hidden" name="personas" value="{{ form.personas.data or '' }}">
+  <div><h2><span class="step-number">2</span> Elige tu hora</h2><p class="muted">{{ form.fecha.data.strftime('%d/%m/%Y') if form.fecha.data else 'Elige una fecha válida' }} · {{ form.personas.data or '—' }} personas · Hora de Colombia</p></div>
+  <fieldset class="time-fieldset"><legend class="sr-only">Horarios disponibles</legend><div class="time-grid">
+  {% for opcion in opciones %}<label class="time-option {{ 'unavailable' if not opcion.disponible else '' }}">
+    <input type="radio" name="hora" value="{{ opcion.valor }}" {% if form.hora.data==opcion.valor %}checked{% endif %} {% if not opcion.disponible %}disabled{% endif %} required>
+    <span>{{ opcion.valor }}{% if not opcion.disponible %}<small>Sin cupo</small>{% endif %}</span>
+  </label>{% else %}<p class="muted">No hay horarios futuros para esta fecha. Consulta otro día o revisa la cantidad de personas.</p>{% endfor %}
+  </div></fieldset>{{ errors(form.hora) }}
+  <p class="hint">Los cupos se verifican nuevamente al confirmar.</p>
+  {% if current_user.usuario.rol == 'ADMINISTRADOR' %}{{ field(form.cliente_id) }}{% endif %}
+  {{ field(form.observaciones, placeholder='¿Hay algo que debamos saber para recibirte?', rows=3, maxlength=500) }}
+  <button class="button full" type="submit" {% if not opciones|selectattr('disponible')|list %}disabled{% endif %}>Confirmar reserva <span aria-hidden="true">→</span></button>
+</form></section>
+<aside class="reservation-aside"><p class="eyebrow accent">TU PLAN</p><h2>{{ restaurante.nombre if restaurante else 'Una buena mesa' }}</h2><p class="muted">{{ restaurante.ciudad if restaurante else '' }}<br>{{ restaurante.direccion if restaurante else '' }}</p><div class="small-divider"></div>
+  <dl class="summary-list"><div><dt>Personas</dt><dd>{{ form.personas.data or '—' }}</dd></div><div><dt>Fecha</dt><dd>{{ form.fecha.data.strftime('%d/%m/%Y') if form.fecha.data else '—' }}</dd></div><div><dt>Duración</dt><dd>{{ duracion }} minutos</dd></div></dl>
+  <div class="aside-message"><span aria-hidden="true">✳</span><h3>Ven por la comida.<br>Quédate por el momento.</h3><p>Asignaremos una mesa adecuada para tu grupo. Puedes cancelar antes de la hora de inicio.</p></div>
+</aside></div>{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+# Entorno virtual
+.venv/
+venv/
+
+# Configuración privada
+.env
+.env.*
+!.env.example
+
+# Archivos temporales Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Archivos locales
+.vscode/
+*.log
+
+# Bases de datos locales
+*.db
+*.sqlite
+*.sqlite3
+
+# Copias de respaldo
+reservas_respaldo/
