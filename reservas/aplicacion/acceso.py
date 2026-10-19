@@ -1,6 +1,6 @@
 from reservas.aplicacion.contratos import UnidadTrabajo
-from reservas.dominio.entidades import Rol
-from reservas.dominio.errores import AccesoDenegado, NoEncontrado
+from reservas.modelo.entidades import Rol
+from reservas.modelo.errores import AccesoDenegado, NoEncontrado
 
 
 class ServicioAcceso:

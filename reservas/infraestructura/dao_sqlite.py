@@ -11,7 +11,7 @@ from reservas.aplicacion.contratos import (
     RestauranteDAO,
     UsuarioDAO,
 )
-from reservas.dominio.entidades import (
+from reservas.modelo.entidades import (
     DatosReserva,
     HorarioAtencion,
     Mesa,

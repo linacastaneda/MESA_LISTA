@@ -1,6 +1,6 @@
 #Adapter por composición: Usuario -> contrato esperado por Flask-Login.
 
-from reservas.dominio.entidades import Usuario
+from reservas.modelo.entidades import Usuario
 
 
 class UsuarioSesionAdapter:

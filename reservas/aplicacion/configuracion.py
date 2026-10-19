@@ -1,4 +1,4 @@
-from reservas.dominio.errores import AccesoDenegado, Conflicto, Validacion
+from reservas.modelo.errores import AccesoDenegado, Conflicto, Validacion
 
 
 class ServicioConfiguracion:

@@ -6,8 +6,8 @@ from secrets import token_urlsafe
 
 import pytest
 
-from reservas.dominio.entidades import HorarioAtencion
-from reservas.dominio.errores import AccesoDenegado, Conflicto, ServicioOcupado, Validacion
+from reservas.modelo.entidades import HorarioAtencion
+from reservas.modelo.errores import AccesoDenegado, Conflicto, ServicioOcupado, Validacion
 from reservas.infraestructura.dao_sqlite import iso
 from reservas.infraestructura.inicializacion import cargar_demo, inicializar
 from tests.conftest import CLAVE, campo_oculto, entrar, formulario_reserva

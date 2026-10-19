@@ -4,7 +4,7 @@ from dataclasses import dataclass, replace
 from datetime import datetime, time
 from enum import StrEnum
 
-from reservas.dominio.errores import Conflicto, Validacion
+from reservas.modelo.errores import Conflicto, Validacion
 from reservas.patrones.prototype import Prototipo
 
 

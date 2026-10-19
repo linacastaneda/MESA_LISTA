@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Self
 
-from reservas.dominio.entidades import HorarioAtencion, Mesa, Reserva, Restaurante, Usuario
+from reservas.modelo.entidades import HorarioAtencion, Mesa, Reserva, Restaurante, Usuario
 
 
 class UsuarioDAO(ABC):

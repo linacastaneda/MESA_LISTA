@@ -1,8 +1,8 @@
 from datetime import UTC, datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from reservas.dominio.entidades import DatosReserva
-from reservas.dominio.errores import SinDisponibilidad, Validacion
+from reservas.modelo.entidades import DatosReserva
+from reservas.modelo.errores import SinDisponibilidad, Validacion
 
 
 class ServicioDisponibilidad:

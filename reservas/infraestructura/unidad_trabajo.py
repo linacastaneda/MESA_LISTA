@@ -4,7 +4,7 @@ import sqlite3
 from pathlib import Path
 
 from reservas.aplicacion.contratos import UnidadTrabajo
-from reservas.dominio.errores import Conflicto, ServicioOcupado
+from reservas.modelo.errores import Conflicto, ServicioOcupado
 from reservas.infraestructura.dao_sqlite import (
     SqliteAsignacionAdminDAO,
     SqliteHorarioDAO,

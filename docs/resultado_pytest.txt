@@ -1,6 +1,0 @@
-Ejecución real de la suite entregada
-Intérprete: Python 3.13.16
-Comando: python -m pytest -q --tb=short --junitxml=docs/resultados_junit.xml
-
-.............................................................            [100%]
-61 passed in 8.86s

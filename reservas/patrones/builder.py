@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
 
-from reservas.dominio.entidades import DatosReserva, Mesa, Reserva
-from reservas.dominio.errores import Validacion
+from reservas.modelo.entidades import DatosReserva, Mesa, Reserva
+from reservas.modelo.errores import Validacion
 
 
 class ConstructorReserva(ABC):
