@@ -6,19 +6,21 @@ Sistema web desarrollado con **Python, Flask y SQLite**, organizado con **Modelo
 
 ```text
 reservas/
-├── modelo/           # Entidades, reglas básicas y errores
+├── modelo/           # Entidades, una clase por archivo, y errores_clases/
 ├── vista/
 │   ├── templates/    # Plantillas HTML (Jinja2)
 │   └── static/       # CSS, JavaScript e imágenes
-├── controlador/      # Rutas Flask y formularios
+├── controlador/      # Rutas Flask y forms/ (un formulario por archivo)
 ├── aplicacion/       # Servicios, lógica de negocio, contratos y Facade
-├── infraestructura/  # DAO, transacciones y esquema SQLite
-├── patrones/         # Builder, Prototype y Adapter
+├── infraestructura/  # dao/ (cada DAO por archivo), transacciones y esquema SQLite
+├── patrones/         # Builder separado en constructores/, Prototype y Adapter
 └── __init__.py       # create_app: inicialización de Flask
 tests/                 # Pruebas automatizadas
 scripts/               # Configuración y respaldo
 run.py                 # Inicio de la aplicación
 ```
+
+Las clases de dominio, los contratos DAO, los DAO SQLite, los formularios y los participantes del patrón Builder están separados en archivos Python individuales. Los módulos `entidades.py`, `errores.py`, `contratos.py`, `dao_sqlite.py`, `formularios.py` y `builder.py` mantienen importaciones públicas compatibles con el resto de la aplicación.
 
 ## Patrones implementados
 
