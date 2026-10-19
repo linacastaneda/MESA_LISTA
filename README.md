@@ -41,6 +41,7 @@ python -m venv .venv
 python -m pip install -r requirements-dev.txt
 python -m pip install tzdata
 python scripts/configurar.py
+# Antes de seed-demo, ajusta DEMO_PASSWORD en .env como se indica abajo
 python -m flask --app run.py init-db
 python -m flask --app run.py seed-demo
 python run.py
@@ -50,26 +51,26 @@ Abre **http://127.0.0.1:5000**. Para siguientes ejecuciones, activa `.venv` y ej
 
 En Linux, activa el entorno con `source .venv/bin/activate`. El paquete `tzdata` es especialmente importante para la zona horaria `America/Bogota` en Windows.
 
-El script `scripts/configurar.py` genera un archivo `.env` local con `SECRET_KEY` y `DEMO_PASSWORD`. También puedes configurar estas variables manualmente en un archivo **`.env` en la raíz del proyecto**:
+## Acceso para evaluación académica
+
+Para que el profesor pueda **iniciar sesión en MesaLista**, se incluyen las siguientes credenciales de demostración. **Son exclusivamente para el proyecto académico; no deben reutilizarse en sistemas reales.**
+
+| Cuenta | Rol | Contraseña de demostración |
+|---|---|---|
+| `cliente@demo.local` | Cliente | `gqmDOmA63RK7rmNr2huhc7tx` |
+| `cliente2@demo.local` | Cliente | `gqmDOmA63RK7rmNr2huhc7tx` |
+| `admin@demo.local` | Administrador de La Mesa | `gqmDOmA63RK7rmNr2huhc7tx` |
+| `admin2@demo.local` | Administrador de Patio Verde | `gqmDOmA63RK7rmNr2huhc7tx` |
+
+**Configuración necesaria para que estas credenciales funcionen:** ejecuta `python scripts/configurar.py` para crear el archivo local `.env`. El script genera `SECRET_KEY` y una contraseña aleatoria. **Antes de ejecutar `seed-demo` por primera vez**, abre el archivo `.env` y reemplaza únicamente su línea `DEMO_PASSWORD` por:
 
 ```dotenv
-DEMO_PASSWORD=REEMPLAZAR_CON_CONTRASENA_DE_PRUEBA
-SECRET_KEY=REEMPLAZAR_CON_CLAVE_SECRETA_ALEATORIA
+DEMO_PASSWORD=gqmDOmA63RK7rmNr2huhc7tx
 ```
 
-- `DEMO_PASSWORD`: contraseña utilizada para las cuentas de demostración al ejecutar `seed-demo`.
-- `SECRET_KEY`: clave privada de Flask para proteger las sesiones. Debe ser larga, aleatoria y diferente para cada entorno.
+**Deja la `SECRET_KEY` generada automáticamente**, sin publicarla. Luego ejecuta `python -m flask --app run.py init-db`, `python -m flask --app run.py seed-demo` y `python run.py`. Abre `http://127.0.0.1:5000` para iniciar sesión.
 
-**No publiques los valores reales de estas variables en GitHub ni en el README.** El archivo `.env` debe mantenerse local y excluido mediante `.gitignore`. Si una clave o contraseña se comparte accidentalmente, sustitúyela por otra nueva y, si corresponde, vuelve a crear las credenciales de demostración.
-
-Usa el valor local de `DEMO_PASSWORD` para acceder con las cuentas de prueba:
-
-| Cuenta | Rol |
-|---|---|
-| `cliente@demo.local` | Cliente |
-| `cliente2@demo.local` | Cliente |
-| `admin@demo.local` | Administrador de La Mesa |
-| `admin2@demo.local` | Administrador de Patio Verde |
+Si ya se crearon las cuentas con otra `DEMO_PASSWORD`, cambiar solo el archivo `.env` **no actualiza** las contraseñas almacenadas: deberás seguir un procedimiento de restablecimiento o preparar una base de demostración nueva.
 
 ## Funcionalidades
 
