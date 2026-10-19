@@ -11,9 +11,9 @@ reservas/
 │   ├── templates/    # Plantillas HTML (Jinja2)
 │   └── static/       # CSS, JavaScript e imágenes
 ├── controlador/      # Rutas Flask y forms/ (un formulario por archivo)
-├── aplicacion/       # Servicios, lógica de negocio, contratos y Facade
+├── aplicacion/       # Servicios, lógica de negocio y puertos DAO
 ├── infraestructura/  # dao/ (cada DAO por archivo), transacciones y esquema SQLite
-├── patrones/         # Builder separado en constructores/, Prototype y Adapter
+├── patrones/         # Builder, Prototype, Facade y Adapter
 └── __init__.py       # create_app: inicialización de Flask
 tests/                 # Pruebas automatizadas
 scripts/               # Configuración y respaldo
@@ -26,9 +26,9 @@ Las clases de dominio, los contratos DAO, los DAO SQLite, los formularios y los 
 
 | Patrón | Tipo | Uso |
 |---|---|---|
-| Builder | Creacional | `reservas/patrones/builder.py`: construcción de una reserva válida |
+| Builder | Creacional | `reservas/patrones/constructores/`: construcción de una reserva válida |
 | Prototype | Creacional | `DatosReserva.clonar()` y `reservas/patrones/prototype.py`: repetición de datos |
-| Facade | Estructural | `reservas/aplicacion/facade.py`: coordinación de operaciones |
+| Facade | Estructural | `reservas/patrones/facade.py`: coordinación de operaciones |
 | Adapter | Estructural | `reservas/patrones/adapter.py`: adaptación de Usuario a Flask-Login |
 
 ## Instalación en Windows (PowerShell)
@@ -50,7 +50,19 @@ Abre **http://127.0.0.1:5000**. Para siguientes ejecuciones, activa `.venv` y ej
 
 En Linux, activa el entorno con `source .venv/bin/activate`. El paquete `tzdata` es especialmente importante para la zona horaria `America/Bogota` en Windows.
 
-El script `scripts/configurar.py` genera un archivo `.env` local con `SECRET_KEY` y `DEMO_PASSWORD`. Usa el valor de `DEMO_PASSWORD` para acceder con las cuentas de prueba:
+El script `scripts/configurar.py` genera un archivo `.env` local con `SECRET_KEY` y `DEMO_PASSWORD`. También puedes configurar estas variables manualmente en un archivo **`.env` en la raíz del proyecto**:
+
+```dotenv
+DEMO_PASSWORD=REEMPLAZAR_CON_CONTRASENA_DE_PRUEBA
+SECRET_KEY=REEMPLAZAR_CON_CLAVE_SECRETA_ALEATORIA
+```
+
+- `DEMO_PASSWORD`: contraseña utilizada para las cuentas de demostración al ejecutar `seed-demo`.
+- `SECRET_KEY`: clave privada de Flask para proteger las sesiones. Debe ser larga, aleatoria y diferente para cada entorno.
+
+**No publiques los valores reales de estas variables en GitHub ni en el README.** El archivo `.env` debe mantenerse local y excluido mediante `.gitignore`. Si una clave o contraseña se comparte accidentalmente, sustitúyela por otra nueva y, si corresponde, vuelve a crear las credenciales de demostración.
+
+Usa el valor local de `DEMO_PASSWORD` para acceder con las cuentas de prueba:
 
 | Cuenta | Rol |
 |---|---|
