@@ -13,7 +13,7 @@ reservas/
 ├── controlador/      # Rutas Flask y forms/ (un formulario por archivo)
 ├── aplicacion/       # Servicios, lógica de negocio, contratos y Facade
 ├── infraestructura/  # dao/ (cada DAO por archivo), transacciones y esquema SQLite
-├── patrones/         # Builder separado en constructores/, Prototype y Adapter
+├── patrones/         # Builder, Prototype, Facade y Adapter
 └── __init__.py       # create_app: inicialización de Flask
 tests/                 # Pruebas automatizadas
 scripts/               # Configuración y respaldo
@@ -28,7 +28,7 @@ Las clases de dominio, los contratos DAO, los DAO SQLite, los formularios y los 
 |---|---|---|
 | Builder | Creacional | `reservas/patrones/builder.py`: construcción de una reserva válida |
 | Prototype | Creacional | `DatosReserva.clonar()` y `reservas/patrones/prototype.py`: repetición de datos |
-| Facade | Estructural | `reservas/aplicacion/facade.py`: coordinación de operaciones |
+| Facade | Estructural | `reservas/patrones/facade.py`: coordinación de operaciones |
 | Adapter | Estructural | `reservas/patrones/adapter.py`: adaptación de Usuario a Flask-Login |
 
 ## Instalación en Windows (PowerShell)
