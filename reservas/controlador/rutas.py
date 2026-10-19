@@ -17,9 +17,9 @@ from flask import (
 )
 from flask_login import current_user, login_required, login_user, logout_user
 
-from reservas.dominio.entidades import DatosReserva, HorarioAtencion, Mesa, Rol
-from reservas.dominio.errores import ErrorAplicacion, Validacion
-from reservas.presentacion.formularios import HorarioForm, LoginForm, MesaForm, ReservaForm
+from reservas.modelo.entidades import DatosReserva, HorarioAtencion, Mesa, Rol
+from reservas.modelo.errores import ErrorAplicacion, Validacion
+from reservas.controlador.formularios import HorarioForm, LoginForm, MesaForm, ReservaForm
 
 web = Blueprint("web", __name__)
 

@@ -1,4 +1,4 @@
-from reservas.dominio.entidades import Rol
+from reservas.modelo.entidades import Rol
 
 
 class ServicioCatalogos:

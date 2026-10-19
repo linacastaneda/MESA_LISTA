@@ -1,7 +1,7 @@
 #Facade: puerta de entrada a los casos de uso compartidos por ambos roles.
 
-from reservas.dominio.entidades import Rol
-from reservas.dominio.errores import Validacion
+from reservas.modelo.entidades import Rol
+from reservas.modelo.errores import Validacion
 
 
 class ReservaFacade:

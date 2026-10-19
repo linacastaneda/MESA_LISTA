@@ -6,7 +6,7 @@ from secrets import token_urlsafe
 import pytest
 
 from reservas import create_app
-from reservas.dominio.entidades import DatosReserva
+from reservas.modelo.entidades import DatosReserva
 from reservas.infraestructura.inicializacion import cargar_demo, inicializar
 
 CLAVE = "ClaveSoloParaPruebas-2026!"

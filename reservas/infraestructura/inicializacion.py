@@ -5,7 +5,7 @@ from pathlib import Path
 
 from werkzeug.security import generate_password_hash
 
-from reservas.dominio.errores import Conflicto, Validacion
+from reservas.modelo.errores import Conflicto, Validacion
 from reservas.infraestructura.unidad_trabajo import UnidadTrabajoSqlite
 
 CUENTAS_DEMO = [

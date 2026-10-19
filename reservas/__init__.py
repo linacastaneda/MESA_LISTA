@@ -17,7 +17,7 @@ from reservas.aplicacion.configuracion import ServicioConfiguracion
 from reservas.aplicacion.disponibilidad import ServicioDisponibilidad, reloj_utc
 from reservas.aplicacion.facade import ReservaFacade
 from reservas.aplicacion.reservas import ServicioReserva
-from reservas.dominio.errores import ErrorAplicacion
+from reservas.modelo.errores import ErrorAplicacion
 from reservas.infraestructura.inicializacion import CUENTAS_DEMO, cargar_demo, inicializar
 from reservas.infraestructura.unidad_trabajo import UnidadTrabajoSqlite
 
@@ -27,8 +27,8 @@ def create_app(config=None):
     load_dotenv(raiz / ".env")
     app = Flask(
         __name__,
-        template_folder="presentacion/templates",
-        static_folder="presentacion/static",
+        template_folder="vista/templates",
+        static_folder="vista/static",
         instance_path=str(raiz / "instance"),
     )
     app.config.from_mapping(
@@ -77,7 +77,7 @@ def create_app(config=None):
     login.login_message = "Inicia sesión para continuar."
     login.login_message_category = "info"
     login.user_loader(autenticacion.cargar_sesion)
-    from reservas.presentacion.rutas import web
+    from reservas.controlador.rutas import web
 
     app.register_blueprint(web)
 

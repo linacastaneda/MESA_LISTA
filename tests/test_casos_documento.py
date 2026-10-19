@@ -10,8 +10,8 @@ import pytest
 
 from reservas import create_app
 from reservas.aplicacion.reservas import ServicioReserva
-from reservas.dominio.entidades import EstadoReserva, Rol, Usuario
-from reservas.dominio.errores import AccesoDenegado, Conflicto, SinDisponibilidad, Validacion
+from reservas.modelo.entidades import EstadoReserva, Rol, Usuario
+from reservas.modelo.errores import AccesoDenegado, Conflicto, SinDisponibilidad, Validacion
 from reservas.infraestructura.dao_sqlite import SqliteReservaDAO
 from reservas.infraestructura.unidad_trabajo import UnidadTrabajoSqlite
 from reservas.patrones.adapter import UsuarioSesionAdapter

@@ -2,8 +2,8 @@ import re
 from collections.abc import Callable
 
 from reservas.aplicacion.contratos import UnidadTrabajo
-from reservas.dominio.entidades import Rol
-from reservas.dominio.errores import Conflicto, Validacion
+from reservas.modelo.entidades import Rol
+from reservas.modelo.errores import Conflicto, Validacion
 from reservas.patrones.builder import ContextoReserva, DirectorReserva, ReservaBuilder
 
 
