@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% from 'macros.html' import badge %}{% block title %}Mis reservas{% endblock %}
 {% block content %}
 <div class="page-heading"><div><p class="eyebrow accent">TODO LISTO PARA ENCONTRARNOS</p><h1>{{ 'Reservas del restaurante' if current_user.usuario.rol == 'ADMINISTRADOR' else 'Tus momentos a la mesa.' }}</h1><p class="muted">Consulta tus próximos encuentros y revisa los anteriores.</p></div><a class="button" href="{{ url_for('web.nueva_reserva') }}">Nueva reserva <span aria-hidden="true">+</span></a></div>
-<form class="filter-bar" method="get"><div class="field"><label for="restaurante_id">Restaurante</label><select id="restaurante_id" name="restaurante_id"><option value="">Todos</option>{% for r in restaurantes %}<option value="{{ r.id }}" {% if filtro_restaurante==r.id %}selected{% endif %}>{{ r.nombre }}</option>{% endfor %}</select></div>
+<form class="filter-bar" method="get">
   <div class="field"><label for="fecha">Fecha</label><input type="date" id="fecha" name="fecha" value="{{ filtro_fecha or '' }}"></div>
   <div class="field"><label for="estado">Estado</label><select name="estado" id="estado"><option value="">Todos</option><option value="CONFIRMADA" {% if filtro_estado=='CONFIRMADA' %}selected{% endif %}>Confirmadas</option><option value="CANCELADA" {% if filtro_estado=='CANCELADA' %}selected{% endif %}>Canceladas</option></select></div><button class="button outline" type="submit">Filtrar</button><a class="text-link" href="{{ url_for('web.reservas') }}">Limpiar</a>
 </form>
