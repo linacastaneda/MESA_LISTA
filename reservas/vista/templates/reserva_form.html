@@ -1,14 +1,14 @@
 {% extends 'base.html' %}{% from 'macros.html' import field, errors %}{% block title %}Reservar una mesa{% endblock %}
 {% block content %}
-<a class="back-link" href="{{ url_for('web.restaurantes') }}">← Volver a restaurantes</a>
+<a class="back-link" href="{{ url_for('web.restaurantes') }}">← Volver a Origen</a>
 <div class="page-heading"><div><p class="eyebrow accent">TU PRÓXIMO ENCUENTRO</p><h1>Guardemos tu mesa.</h1><p class="muted">Selecciona una hora y confirma los detalles de tu reserva.</p></div><span class="step-label">01 Elige &nbsp; / &nbsp; 02 Confirma</span></div>
 {% if repetida %}<div class="alert info">Copiamos los datos de tu reserva anterior. Elige una fecha futura y confirma de nuevo; la reserva original se conserva.</div>{% endif %}
-{% if not restaurantes %}<div class="empty"><h2>No hay restaurantes disponibles</h2><p>Vuelve a consultar más adelante.</p></div>{% else %}
+{% if not restaurantes %}<div class="empty"><h2>Origen no está disponible en este momento</h2><p>Vuelve a consultar más adelante.</p></div>{% else %}
 <div class="reservation-layout"><section>
 <div class="panel"><h2><span class="step-number">1</span> ¿Cuándo nos vemos?</h2>
 <form method="get" action="{{ url_for('web.nueva_reserva') }}" class="stack">
   {% if origen_repeticion %}<input type="hidden" name="repetir_id" value="{{ origen_repeticion }}">{% endif %}
-  {{ field(form.restaurante_id) }}
+  <input type="hidden" name="restaurante_id" value="{{ form.restaurante_id.data or '' }}">
   <div class="form-grid">{{ field(form.fecha) }}{{ field(form.personas, min=1, max=1000) }}</div>
   <button class="button outline" type="submit">Consultar horarios</button>
 </form></div>
