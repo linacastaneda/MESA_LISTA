@@ -1,17 +1,12 @@
-{% extends 'base.html' %}{% block title %}Restaurantes{% endblock %}
+{% extends 'base.html' %}{% block title %}Origen{% endblock %}
 {% block content %}
-<section class="page-intro"><div><p class="eyebrow accent">ENCUENTRA TU PRÓXIMO PLAN</p><h1>Siempre hay una mesa<br>para una buena historia.</h1><p class="muted">Elige dónde reunirte. Nosotros nos encargamos de guardar tu lugar.</p></div><div class="intro-seal" aria-hidden="true">Nos vemos<br><em>a la mesa.</em><span>✳</span></div></section>
-<form method="get" class="search-bar" role="search">
-  <div class="field"><label for="nombre">¿Qué restaurante buscas?</label><input id="nombre" name="nombre" placeholder="Nombre del restaurante" value="{{ nombre }}" maxlength="100"></div>
-  <div class="field"><label for="ciudad">Ciudad</label><input id="ciudad" name="ciudad" placeholder="Todas las ciudades" value="{{ ciudad }}" maxlength="100"></div>
-  <button class="button" type="submit">Buscar restaurantes <span aria-hidden="true">↗</span></button>
-</form>
-<div class="section-line"><h2>Un lugar para compartir</h2><span class="muted">{{ restaurantes|length }} {{ 'restaurante' if restaurantes|length == 1 else 'restaurantes' }}</span></div>
+<section class="page-intro"><div><p class="eyebrow accent">ENCUENTRA TU PRÓXIMO PLAN</p><h1>Siempre hay una mesa<br>para una buena historia.</h1><p class="muted">En Origen guardamos tu lugar para que disfrutes cada encuentro.</p></div><div class="intro-seal" aria-hidden="true">Nos vemos<br><em>a la mesa.</em><span>✳</span></div></section>
+<div class="section-line"><h2>Reserva en Origen</h2><span class="muted">Nuestro restaurante</span></div>
 <div class="restaurant-grid">
 {% for r in restaurantes %}<article class="restaurant-card">
   <div class="restaurant-art {{ 'green' if loop.index is even else 'terracotta' }}"><span class="art-city">{{ r.ciudad }}</span><div class="art-table" aria-hidden="true"><span></span><i></i><span></span></div><span class="art-number">0{{ loop.index }}</span><div class="art-title">{{ r.nombre }}<small>El gusto de encontrarnos</small></div></div>
   <div class="restaurant-info"><div><p class="eyebrow accent">{{ r.ciudad }}</p><h3>{{ r.nombre }}</h3><p class="muted">{{ r.direccion }}</p></div><a class="button outline" href="{{ url_for('web.nueva_reserva', restaurante_id=r.id) }}">Reservar una mesa <span aria-hidden="true">↗</span></a></div>
-</article>{% else %}<div class="empty"><span aria-hidden="true">⌕</span><h3>No encontramos restaurantes</h3><p>Prueba con otro nombre o ciudad.</p><a href="{{ url_for('web.restaurantes') }}" class="button outline">Limpiar búsqueda</a></div>{% endfor %}
+</article>{% else %}<div class="empty"><span aria-hidden="true">⌕</span><h3>No encontramos el restaurante</h3><p>Consulta de nuevo más adelante.</p><a href="{{ url_for('web.restaurantes') }}" class="button outline">Volver al inicio</a></div>{% endfor %}
 </div>
 <div class="bottom-note"><strong>Haz espacio para lo que importa.</strong><span>Reservas de {{ duracion }} minutos · Confirmación al instante</span></div>
 {% endblock %}
