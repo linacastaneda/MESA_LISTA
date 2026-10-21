@@ -2,8 +2,8 @@
 {% block title %}Bienvenido{% endblock %}{% block main_class %}login-shell{% endblock %}
 {% block content %}
 <section class="login-story">
-  <a class="brand light" href="{{ url_for('web.login') }}"><span class="brand-mark">m.</span>MesaLista.</a>
-  <div class="story-copy"><p class="eyebrow">BUENOS MOMENTOS, MEJOR COMPAÑÍA</p><h1>La próxima historia<br>empieza en una mesa.</h1><p>Encuentra tu lugar, elige la hora y disfruta.<br>Nosotros guardamos tu mesa.</p></div>
+  <a class="brand light" href="{{ url_for('web.login') }}"><span class="brand-mark">o.</span>Origen.</a>
+  <div class="story-copy"><p class="eyebrow">BUENOS MOMENTOS, MEJOR COMPAÑÍA</p><h1>La próxima historia<br>empieza en una mesa.</h1><p>Elige tu hora en Origen y disfruta.<br>Nosotros guardamos tu mesa.</p></div>
   <img class="table-art" src="{{ url_for('static', filename='mesa.svg') }}" alt="Ilustración de una mesa preparada para compartir" width="520" height="350">
   <p class="story-foot">Reservar debería ser tan sencillo como sentarse a conversar.</p>
 </section>
@@ -14,7 +14,7 @@
     {{ form.hidden_tag() }}
     {{ field(form.correo, autocomplete='username', type='email', placeholder='tu@correo.com') }}
     {{ field(form.clave, autocomplete='current-password', placeholder='Tu contraseña') }}
-    <button type="submit" class="button full">Entrar a MesaLista <span aria-hidden="true">→</span></button>
+    <button type="submit" class="button full">Entrar a Origen <span aria-hidden="true">→</span></button>
   </form>
   <p class="login-note">Usa la cuenta que te asignó el administrador.<br>Tu acceso se adapta automáticamente a tu rol.</p>
   <div class="small-divider"></div><p class="quiet">Una reserva. Un encuentro. Un buen momento.</p>
