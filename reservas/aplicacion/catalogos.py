@@ -9,7 +9,7 @@ class ServicioCatalogos:
     def restaurantes(self, actor_id, nombre="", ciudad=""):
         with self.crear_uow() as u:
             actor = self.acceso.actor(u, actor_id)
-            resultados = u.restaurantes.buscar(nombre.strip(), ciudad.strip())
+            resultados = [r for r in u.restaurantes.buscar(nombre.strip(), ciudad.strip()) if r.id == 1]
             if actor.rol == Rol.ADMINISTRADOR:
                 ids = u.asignaciones.listar_restaurantes(actor.id)
                 resultados = [r for r in resultados if r.id in ids]
