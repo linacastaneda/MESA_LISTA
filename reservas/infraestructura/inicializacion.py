@@ -12,7 +12,6 @@ CUENTAS_DEMO = [
     (1, "Ana Torres", "cliente@demo.local", "CLIENTE"),
     (2, "Diego Ruiz", "cliente2@demo.local", "CLIENTE"),
     (3, "Camila Ortiz", "admin@demo.local", "ADMINISTRADOR"),
-    (4, "Mateo Silva", "admin2@demo.local", "ADMINISTRADOR"),
 ]
 
 
@@ -44,14 +43,13 @@ def cargar_demo(ruta, clave):
         u.conexion.executemany(
             "INSERT INTO restaurante(id,nombre,ciudad,direccion) VALUES(?,?,?,?)",
             [
-                (1, "La Mesa", "Bogotá", "Calle 70 # 9-24"),
-                (2, "Patio Verde", "Medellín", "Carrera 43 # 12-18"),
+                (1, "Origen", "Bogotá", "Dirección por configurar"),
             ],
         )
         u.conexion.executemany(
-            "INSERT INTO administrador_restaurante VALUES(?,?)", [(3, 1), (4, 2)]
+            "INSERT INTO administrador_restaurante VALUES(?,?)", [(3, 1)]
         )
-        for restaurante in (1, 2):
+        for restaurante in (1,):
             for numero, capacidad in enumerate((2, 2, 4, 4, 6, 8, 12), 1):
                 u.conexion.execute(
                     "INSERT INTO mesa(restaurante_id,numero,capacidad) VALUES(?,?,?)",
